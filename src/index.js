@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const isNullOrUndefined= val=>val==null || val==undefined;
-app.get("/newsFeed",async(req,res)=>{
+app.get("/newFeeds",async(req,res)=>{
     // if(!isNullOrUndefined(req.params.limit)){
     //     limit=Number(req.params.limit);
     // }
@@ -23,7 +23,7 @@ app.get("/newsFeed",async(req,res)=>{
     res.send(await newsArticleModel.find().skip(0).limit(10));
 });
 
-app.get("/newsFeed/:offset/:limit",async(req,res)=>{
+app.get("/newFeeds/:offset/:limit",async(req,res)=>{
     if(!isNullOrUndefined(req.params.limit)){
         limit=Number(req.params.limit);
     }
