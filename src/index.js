@@ -23,7 +23,7 @@ app.get("/newFeeds",async(req,res)=>{
     if(!isNullOrZero(req.query.offset)){
         offset=req.query.offset;
     }else{
-        offset=10;
+        offset=0;
     }
     res.send(await newsArticleModel.find().skip(Number(offset)).limit(Number(limit)));
 });
