@@ -12,7 +12,7 @@ let offset=0;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const isNullOrZero= val=>val==null || val==0;
+const isNullOrZero= val=>val==null || val==0 || Number(val)==NaN;
 
 app.get("/newFeeds",async(req,res)=>{
     if(!isNullOrZero(req.query.limit)){
