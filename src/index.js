@@ -14,13 +14,13 @@ app.use(express.json());
 
 const isNullOrUndefined= val=>val==null || val==undefined;
 app.get("/newsFeed",async(req,res)=>{
-    if(!isNullOrUndefined(req.params.limit)){
-        limit=Number(req.params.limit);
-    }
-    if(!isNullOrUndefined(req.params.offset)){
-        offset=Number(req.params.offset);
-    }
-    res.send(await newsArticleModel.find().skip(offset).limit(limit));
+    // if(!isNullOrUndefined(req.params.limit)){
+    //     limit=Number(req.params.limit);
+    // }
+    // if(!isNullOrUndefined(req.params.offset)){
+    //     offset=Number(req.params.offset);
+    // }
+    res.send(await newsArticleModel.find().skip(0).limit(10));
 });
 
 app.get("/newsFeed/:offset/:limit",async(req,res)=>{
