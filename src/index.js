@@ -13,6 +13,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const isNullOrUndefined= val=>val==null || val==undefined;
+app.get("/newsFeed",async(req,res)=>{
+    if(!isNullOrUndefined(req.params.limit)){
+        limit=Number(req.params.limit);
+    }
+    if(!isNullOrUndefined(req.params.offset)){
+        offset=Number(req.params.offset);
+    }
+    res.send(await newsArticleModel.find().skip(offset).limit(limit));
+});
 
 app.get("/newsFeed/:limit/:offset",async(req,res)=>{
     if(!isNullOrUndefined(req.params.limit)){
@@ -21,7 +30,7 @@ app.get("/newsFeed/:limit/:offset",async(req,res)=>{
     if(!isNullOrUndefined(req.params.offset)){
         offset=Number(req.params.offset);
     }
-    res.send(await newsArticleModel.find().skip(offset).limit(limit));
+    // res.send(await newsArticleModel.find().skip(offset).limit(limit));
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
