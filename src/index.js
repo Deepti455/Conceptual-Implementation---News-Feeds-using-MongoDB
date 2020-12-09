@@ -12,25 +12,20 @@ let offset=0;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const isNullOrUndefined= val=>val==null || val==undefined;
-app.get("/newFeeds",async(req,res)=>{
-    // if(!isNullOrUndefined(req.params.limit)){
-    //     limit=Number(req.params.limit);
-    // }
-    // if(!isNullOrUndefined(req.params.offset)){
-    //     offset=Number(req.params.offset);
-    // }
-    res.send(await newsArticleModel.find().skip(0).limit(10));
-});
+const isNullOrZero= val=>val==null || val==0;
 
-app.get("/newFeeds/:offset/:limit",async(req,res)=>{
-    if(!isNullOrUndefined(req.params.limit)){
-        limit=Number(req.params.limit);
+app.get("/newFeeds",async(req,res)=>{
+    if(!isNullOrZero(req.query.limit)){
+        limit=req.query.limit;
+    }else{
+        limit=10;
     }
-    if(!isNullOrUndefined(req.params.offset)){
-        offset=Number(req.params.offset);
+    if(!isNullOrZero(req.query.offset)){
+        offset=req.query.offset;
+    }else{
+        offset=10;
     }
-    res.send(await newsArticleModel.find().skip(offset).limit(limit));
+    res.send(await newsArticleModel.find().skip(Number(offset)).limit(Number(limit)));
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
