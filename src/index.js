@@ -15,7 +15,9 @@ app.use(express.json());
 const isNullOrZero= val=>val==null || val==0 || Number(val)==NaN;
 
 app.get("/newFeeds",async(req,res)=>{
-    if(!isNullOrZero(req.query.limit)){
+    const data=await newsArticleModel.find();
+    const len=data.length;
+    if(!isNullOrZero(req.query.limit) && len>=req.query.limit){
         limit=req.query.limit;
     }else{
         limit=10;
