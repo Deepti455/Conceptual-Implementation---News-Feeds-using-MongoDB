@@ -23,14 +23,14 @@ app.get("/newsFeed",async(req,res)=>{
     res.send(await newsArticleModel.find().skip(offset).limit(limit));
 });
 
-app.get("/newsFeed/:limit/:offset",async(req,res)=>{
+app.get("/newsFeed/:offset/:limit",async(req,res)=>{
     if(!isNullOrUndefined(req.params.limit)){
         limit=Number(req.params.limit);
     }
     if(!isNullOrUndefined(req.params.offset)){
         offset=Number(req.params.offset);
     }
-    // res.send(await newsArticleModel.find().skip(offset).limit(limit));
+    res.send(await newsArticleModel.find().skip(offset).limit(limit));
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
